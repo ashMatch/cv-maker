@@ -5,17 +5,20 @@ import { Box } from "@mui/material";
 import { PreviewCVButton,SubmitButton } from './ButtonPreviewAndSubmitComponent'
 import { 
     PersonalInfoComponent, 
+    ExperienceComponent,
+    IdiomsComponent,
     GoalComponent,
-    ExperienceComponent
+    CursesComponent,
+    LinksComponent
 } from './FormFields'
 
 const topicComponents = {
     '+ INFORMAÇÕES PESSOAIS': <PersonalInfoComponent/>,
     '+ OBJETIVO': <GoalComponent/>,
     '+ EXPERIÊNCIAS': <ExperienceComponent/>,
-    '+ IDIOMAS': <PersonalInfoComponent/>,
-    '+ CURSOS': <PersonalInfoComponent/>,
-    '+ LINKS': <PersonalInfoComponent/>,
+    '+ IDIOMAS': <IdiomsComponent/>,
+    '+ CURSOS': <CursesComponent/>,
+    '+ LINKS': <LinksComponent/>,
 }
 const topics = [
     '+ INFORMAÇÕES PESSOAIS', 
@@ -30,15 +33,16 @@ export default function CVForms(){
     return(
         <Box
          sx={{
-            width: '70%',
-            margin: '3rem',
-            backgroundColor: '#FDFBFB',
-            padding: '2rem',
-            paddingLeft: '4rem',
-            borderRadius: '36px'
+             width: '70%',
+             margin: '3rem',
+             backgroundColor: '#FDFBFB',
+             padding: '2rem',
+             paddingLeft: '4rem',
+             borderRadius: '36px'
 
          }}
         >
+             <form action=''>
 
             <ul>
                 {topics.map((topic, index) => (
@@ -59,7 +63,8 @@ export default function CVForms(){
                 </li>
                 <Box
                     sx={{
-                        marginY:'4vh'
+                        marginY:'4vh',
+                        // backgroundColor: '#b45c'
                     }}
                 >
                 {topicComponents[topic]}
@@ -76,9 +81,10 @@ export default function CVForms(){
                 justifyItems: 'center',
                 justifyContent: 'space-around',
             }}>
-                <PreviewCVButton/>
-                <SubmitButton />
+                <PreviewCVButton textBtn="Visualizar"/>
+                <SubmitButton textBtn="Gerar pdf"/>
             </Box>
+        </form>
         </Box>
     )
 }

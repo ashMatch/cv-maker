@@ -1,6 +1,7 @@
+'use client'
 import { Button, Stack } from '@mui/material'
 
-export const PreviewCVButton = () => {
+export const PreviewCVButton = ({textBtn, handleClick=()=>{}}) => {
     return(
     <Stack
         spacing={4}
@@ -13,14 +14,14 @@ export const PreviewCVButton = () => {
             borderWidth: '2px',
             color: "#B22F9E"
         }}
-        >Preview</Button>
+        >{textBtn}</Button>
     </Stack>
 )}
-export const SubmitButton = () => {
+export const SubmitButton = ({textBtn, handleClick}) => {
     return(
-    <Stack
-        spacing={4}
-    >
-        <Button variant='contained' sx={{ fontWeight: 'bold',backgroundColor:"#B22F9E"}}>Gerar PDF</Button>
+    <Stack spacing={4}>
+        <Button variant='contained' sx={{ fontWeight: 'bold',backgroundColor:"#B22F9E"}}
+         onClick={handleClick}
+        >{textBtn}</Button>
     </Stack>
 )}

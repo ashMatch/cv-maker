@@ -1,139 +1,161 @@
 'use client'
+import { useState } from 'react'
 
-
-import * as React from 'react';
-import { FormGroup, Grid, Label, OutLinedInput, Stack, TextField, Button } from "@mui/material"
+import { FormGroup, Grid, Label, OutLinedInput, Stack, TextField, Button, Box, Checkbox } from "@mui/material"
 
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import 'dayjs/locale/pt-br'
+import { PreviewCVButton, SubmitButton } from './ButtonPreviewAndSubmitComponent';
 
 // borderColor: '#B22F9E',
 
+const removeNumberRows = {'& input[type=number]': {
+      'mozAppearance': 'textfield', // Firefox
+    },
+    '& input[type=number]::-webkit-outer-spin-button': {
+      'webkitAppearance': 'none',
+      margin: 0,
+    },
+    '& input[type=number]::-webkit-inner-spin-button': {
+      'webkitAppearance': 'none',
+      margin: 0,
+    },}
+
+const handleKeyDown = (event) => {
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    event.preventDefault(); // bloqueia ↑ e ↓
+  }
+}
+
+
 export const PersonalInfoComponent = () => {
     return(
-      <form>
+      <Box sx={{width:'94%'}}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={8}>
             <TextField
               required
+              fullWidth
               id="full-name"
               label="Nome Completo"
               type="text"
               variant="standard"
-              sx={{
-                width: '50%'
-              }}
             />
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
-              <DemoContainer components={['DatePicker']}>
-              <DatePicker label="Data de Nascimento" slotProps={{
-                textField: {
-                  variant: 'standard'
-                } }}/>
-              </DemoContainer>
-            </LocalizationProvider>
-        <Stack 
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '4px'
+            </Grid> 
+            <Grid size={4}>
+              <LocalizationProvider fullWidth dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
+                <DemoContainer components={['DatePicker']} sx={{overflow: 'hidden'}}>
+                <DatePicker label="Data de Nascimento" slotProps={{
+                  textField: {
+                    variant: 'standard',
+                    sx: {
+                      overflow: 'hidden',
+                      '& .MuiInputBase-root': {
+                        alignItems: 'center', // força centralização do input e ícone
+                      },
+                      '& .MuiInputBase-input': {
+                        paddingRight: '0px', // diminua esse valor conforme o desejado (pode ser 0, 1, 2, etc)
+                        paddingTop: '0px',
+                        paddingBottom: '0px',
 
-        }}>
-            <TextField
-              required
-              id="cep"
-              label="CEP"
-              type="number"
-              variant="standard"
-              sx={{
-                width: '40%'
-              }}
-            />
-            <TextField
-              required
-              id="area"
-              label="Bairro"
-              type="text"
-              variant="standard"
-              sx={{
-                width: '40%'
-              }}
-            />
-            <TextField
-              required
-              id="house-number"
-              label="Numero"
-              type="number"
-              variant="standard"
-              sx={{
-                width: '20%'
-              }}
-            />
-        </Stack>
-        <Stack 
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '4px'
-
-        }}>
-            <TextField
-              required
-              id="address"
-              label="Endereço"
-              type="text"
-              variant="standard"
-              sx={{
-                width: '50%'
-              }}
-            />
-            <TextField
-              required
-              id="extra-info"
-              label="Complemento"
-              type="text"
-              variant="standard"
-              sx={{
-                width: '40%'
-              }}
-            />
-        </Stack>
-        <Stack 
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '4px'
-
-        }}>
-            <TextField
-              required
-              id="email"
-              label="Email"
-              type="email"
-              variant="standard"
-              sx={{
-                width: '50%'
-              }}
-            />
-            <TextField
-              required
-              id="phone"
-              label="Celular"
-              type="number"
-              variant="standard"
-              sx={{
-                width: '40%'
-              }}
-            />
-        </Stack>
-      </form>
+                      },
+                      // Reduz a margin do adornment (ícone)
+                      '& .MuiInputAdornment-root': {
+                        marginRight: '0px',
+                    },
+                  }
+                  }
+                  }}/>
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+            <Grid size={4}>
+              <TextField
+                fullWidth
+                required
+                id="cep"
+                label="CEP"
+                type="number"
+                variant="standard"
+                sx={removeNumberRows}
+                onKeyDown={handleKeyDown}
+              />
+            </Grid>
+            <Grid size={6}>
+              <TextField
+                fullWidth
+                required
+                id="area"
+                label="Bairro"
+                type="text"
+                variant="standard"
+              />
+            </Grid>
+            <Grid size={2}>
+              <TextField
+                fullWidth
+                required
+                id="house-number"
+                label="Numero"
+                type="number"
+                variant="standard"
+                sx={removeNumberRows}
+                onKeyDown={handleKeyDown}
+              />
+            </Grid>
+            <Grid size={8}>
+              <TextField
+                fullWidth
+                required
+                id="address"
+                label="Endereço"
+                type="text"
+                variant="standard"
+              />
+            </Grid>
+            <Grid size={4}>
+              <TextField
+                fullWidth
+                required
+                id="extra-info"
+                label="Complemento"
+                type="text"
+                variant="standard"
+              />
+            </Grid>
+            <Grid size={8}>
+              <TextField
+                fullWidth
+                required
+                id="email"
+                label="Email"
+                type="text"
+                variant="standard"
+              />
+            </Grid>
+            <Grid size={4}>
+              <TextField
+                fullWidth
+                required
+                id="extra-info"
+                label="Phone"
+                type="number"
+                variant="standard"
+                sx={removeNumberRows}
+                onKeyDown={handleKeyDown}
+              />
+          </Grid>
+        </Grid>
+      </Box>
     )
 }
 
 export const GoalComponent = () => {
     return (
-      <form noValidate>
+      <FormGroup>
       <div>
         <TextField
           id="outlined-textarea"
@@ -146,44 +168,151 @@ export const GoalComponent = () => {
           }}
         />
       </div>
-      </form>
+      </FormGroup>
     )
 }
 
-export const ExperienceComponent = () => (
-    <form>
-      <TextField 
-      label="EMPRESA"
-      variant="standard"
+export const ExperienceComponent = () =>{ 
+  const [ currentJob, setCurrentJob] = useState(false)
+  const [ newExperienceForm, setNewExperienceForm] = useState(false)
+
+  const handleCurrentJobOrDateLast = ()=> setCurrentJob(!currentJob)
+  const handleNewExperience = () => setNewExperienceForm(true)
+  
+  return (
+    <>
+    <Stack sx={{marginTop: '2vh',width: '25%'}}>
+        <SubmitButton textBtn="Adicionar Experiência" handleClick={handleCurrentJobOrDateLast}/>
+    </Stack>
+    { newExperienceForm && (
+   <Box sx={{width: '94%'}}>
+    <Grid container spacing={2}>
+      <Grid size={8}>
+        <TextField
+        fullWidth 
+        label="EMPRESA"
+        variant="standard"
+        margin="normal"
+        />
+      </Grid>
+      <Grid size={4}>
+      <TextField
       fullWidth
-      margin="normal"
-      />
-      <TextField 
       label="CARGO"
       variant="standard"
-      fullWidth
       margin="normal"
       />
-      <Button
-      variant="contained"
-      sx={{backgroundColor: "#B22F9E"}}
-      type='submit'
-      >
-        Enviar
-      </Button>
-    </form>
+      </Grid>
+      <Grid size={5}>
+        <LocalizationProvider fullWidth dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
+                <DemoContainer components={['DatePicker']} sx={{overflow: 'hidden'}}>
+                <DatePicker label="Data Inicial" slotProps={{
+                  textField: {
+                    variant: 'standard',
+                    sx: {
+                      overflow: 'hidden',
+                      '& .MuiInputBase-root': {
+                        alignItems: 'center', // força centralização do input e ícone
+                      },
+                      '& .MuiInputBase-input': {
+                        paddingRight: '0px', // diminua esse valor conforme o desejado (pode ser 0, 1, 2, etc)
+                        paddingTop: '0px',
+                        paddingBottom: '0px',
+
+                      },
+                      // Reduz a margin do adornment (ícone)
+                      '& .MuiInputAdornment-root': {
+                        marginRight: '0px',
+                    },
+                  }
+                  }
+                  }}/>
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+            <Grid size={2} sx={{
+              display: 'flex',
+              flexDirection: 'flex-row',
+              gap: '4px',
+              alignItems: 'center',
+            }}>
+              <Checkbox
+                value={currentJob}
+                onChange={handleCurrentJobOrDateLast}
+              />
+              <span>Atual</span>
+            </Grid>
+            <Grid size={5}>
+              {currentJob && (
+                <LocalizationProvider fullWidth dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
+                <DemoContainer components={['DatePicker']} sx={{overflow: 'hidden'}}>
+                <DatePicker label="Data Final" slotProps={{
+                  textField: {
+                    variant: 'standard',
+                    sx: {
+                      overflow: 'hidden',
+                      '& .MuiInputBase-root': {
+                        alignItems: 'center', // força centralização do input e ícone
+                      },
+                      '& .MuiInputBase-input': {
+                        paddingRight: '0px', // diminua esse valor conforme o desejado (pode ser 0, 1, 2, etc)
+                        paddingTop: '0px',
+                        paddingBottom: '0px',
+
+                      },
+                      // Reduz a margin do adornment (ícone)
+                      '& .MuiInputAdornment-root': {
+                        marginRight: '0px',
+                    },
+                  }
+                  }
+                  }}/>
+                </DemoContainer>
+              </LocalizationProvider>
+              )}
+        </Grid>
+        <Grid size={12}>
+        <TextField
+          fullWidth
+          id="outlined-textarea"
+          label="Minha Função"
+          placeholder="Função do cargo"
+          multiline
+          rows={3}
+        />
+      </Grid>
+      </Grid>
+      <Stack sx={{marginTop: '2vh',width: '25%'}}>
+        <PreviewCVButton textBtn="Remover Experiencia"/>
+      </Stack>
+      </Box> 
+      )}
+      </>
+  )
+}
+export const IdiomsComponent = () => (
+    <FormGroup>
+      <Stack direction="row" spacing={6}>
+        <PreviewCVButton textBtn="Remover"/>
+        <SubmitButton textBtn="Adicionar"/>
+      </Stack>
+    </FormGroup>
 )
 
-const IdiomsComponent = () => (
-    <>
-    </>
+export const CursesComponent = () => (
+    <FormGroup>
+      <Stack direction="row" spacing={6}>
+        <PreviewCVButton textBtn="Remover"/>
+        <SubmitButton textBtn="Adicionar"/>
+      </Stack>
+    </FormGroup>
 )
 
-const CursesComponent = () => (
-    <>
-    </>
-)
-
-const LinksComponent = () => (
-    <></>
+export const LinksComponent = () => (
+        <FormGroup>
+      <Stack direction="row" spacing={6}>
+        <PreviewCVButton textBtn="Remover"/>
+        <SubmitButton textBtn="Adicionar"/>
+      </Stack>
+    </FormGroup>
 )
