@@ -14,6 +14,7 @@ export const PreviewCVButton = ({textBtn, handleClick=()=>{}}) => {
             borderWidth: '2px',
             color: "#B22F9E"
         }}
+        onClick={handleClick}
         >{textBtn}</Button>
     </Stack>
 )}

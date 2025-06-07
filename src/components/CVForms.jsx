@@ -3,31 +3,11 @@ import * as React from 'react'
 import { Box } from "@mui/material";
 
 import { PreviewCVButton,SubmitButton } from './ButtonPreviewAndSubmitComponent'
-import { 
-    PersonalInfoComponent, 
-    ExperienceComponent,
-    IdiomsComponent,
-    GoalComponent,
-    CursesComponent,
-    LinksComponent
-} from './FormFields'
 
-const topicComponents = {
-    '+ INFORMAÇÕES PESSOAIS': <PersonalInfoComponent/>,
-    '+ OBJETIVO': <GoalComponent/>,
-    '+ EXPERIÊNCIAS': <ExperienceComponent/>,
-    '+ IDIOMAS': <IdiomsComponent/>,
-    '+ CURSOS': <CursesComponent/>,
-    '+ LINKS': <LinksComponent/>,
-}
-const topics = [
-    '+ INFORMAÇÕES PESSOAIS', 
-    '+ OBJETIVO', 
-    '+ EXPERIÊNCIAS', 
-    '+ IDIOMAS',
-    '+ CURSOS',
-    '+ LINKS'
-]
+import TitleComponent from './TitleComponent';
+import PersonalInfoComponent from './PersonalInfoComponent';
+import GoalComponent from './GoalComponent';
+import ExperienceComponent from './ExperienceComponent';
 
 export default function CVForms(){
     return(
@@ -43,47 +23,25 @@ export default function CVForms(){
          }}
         >
              <form action=''>
-
-            <ul>
-                {topics.map((topic, index) => (
-                    <Box key={index}>
-                    <li>
-                        <h3 className="text-[#B22F9E] font-bold py-[6px]" 
-                            style={{fontSize:'clamp(.8rem, 2vw, 1.2rem)'}}>
-                        {topic}
-                        </h3>
-                        <Box
-                        sx={{
-                            width:'95%',
-                            height: '4px',
-                            backgroundColor: '#B22F9E',
-                            borderRadius: '999px',
-                        }}
-                        />
-                </li>
+                <TitleComponent title="+ INFORMAÇÕES PESSOAIS"/>
+                <PersonalInfoComponent />
+                <TitleComponent title="+ OBJETIVO"/>
+                <GoalComponent/>
+                <TitleComponent title="+ EXPERIÊNCIAS"/>
+                <ExperienceComponent/>
+                
+                
                 <Box
-                    sx={{
-                        marginY:'4vh',
-                        // backgroundColor: '#b45c'
-                    }}
-                >
-                {topicComponents[topic]}
+                sx={{
+                    marginTop: '16vh',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyItems: 'center',
+                    justifyContent: 'space-around',
+                }}>
+                    <PreviewCVButton textBtn="Visualizar"/>
+                    <SubmitButton textBtn="Gerar pdf"/>
                 </Box>
-                </Box>
-                ))}
-            </ul>
-
-            <Box
-            sx={{
-                marginTop: '16vh',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyItems: 'center',
-                justifyContent: 'space-around',
-            }}>
-                <PreviewCVButton textBtn="Visualizar"/>
-                <SubmitButton textBtn="Gerar pdf"/>
-            </Box>
         </form>
         </Box>
     )
